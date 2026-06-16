@@ -1,0 +1,54 @@
+@import "tailwindcss";
+/* ============================================================
+   CHARTE CUMC-CO — design tokens
+   ============================================================ */
+@theme {
+  /* Polices */
+  --font-sans:  'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+
+  /* Vert primaire (marque) */
+  --color-primary-50:  #E6F5EE;
+  --color-primary-100: #C2E7D5;
+  --color-primary-300: #7BCDA8;
+  --color-primary:     #2DAE7E;   
+  --color-primary-600: #1F8A63;
+  --color-primary-700: #166A4C;
+
+  /* Bleu institutionnel */
+  --color-navy-50:  #EAF0F8;
+  --color-navy-100: #C9D6E8;
+  --color-navy-500: #2C5A99;
+  --color-navy-700: #1B3D6E;
+  --color-navy:     #122A4D;     
+
+  /* Neutres */
+  --color-ink:      #0E1B2C;
+  --color-ink-soft: #3A4A60;
+  --color-muted:    #5B6B80;
+  --color-paper:    #F7F8FA;
+
+  /* Sémantiques */
+  --color-urgent:  #D64545;
+}
+
+/* ============================================================
+   COMPOSANTS RÉUTILISABLES
+   ============================================================ */
+@layer components {
+  .btn {
+    @apply inline-flex items-center gap-2 font-semibold rounded-[10px] cursor-pointer transition active:scale-[.98];
+    font-size: 14.5px;
+  }
+  .btn-primary {
+    @apply bg-primary text-white px-[22px] py-[14px] hover:bg-primary-600;
+    box-shadow: 0 8px 24px rgba(45, 174, 126, .30);
+  }
+  .btn-secondary {
+    @apply bg-white text-navy-700 border-[1.5px] border-navy-500 px-5 py-[12.5px] hover:bg-navy-50;
+  }
+  .btn-nav {
+    @apply px-[18px] py-[10px] text-sm shrink-0;
+  }
+}
+[x-cloak] { display: none !important; }
