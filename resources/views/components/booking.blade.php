@@ -1,4 +1,5 @@
-{{-- PRISE DE RENDEZ-VOUS --}}
+{{-- PRISE DE RENDEZ-VOUS — resources/views/components/booking.blade.php
+     Ordre : infos patient → infos médicales → bouton --}}
 <section id="prendre-rdv" class="py-16 lg:py-24 bg-paper scroll-mt-[88px]">
     <div class="mx-auto max-w-[1440px] px-7 lg:px-14">
 
@@ -52,8 +53,38 @@
                         </button>
                     </div>
 
+                    {{-- ─────── INFOS PATIENT ─────── --}}
+                    <p class="text-[11px] font-semibold tracking-[1.2px] uppercase text-muted mb-3">Vos informations</p>
                     <div class="grid sm:grid-cols-2 gap-[18px] mb-[18px]">
+                        <div>
+                            <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Nom</label>
+                            <input type="text" name="nom" value="{{ old('nom') }}"
+                                   class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors">
+                            @error('nom') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Prénom</label>
+                            <input type="text" name="prenom" value="{{ old('prenom') }}"
+                                   class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors">
+                            @error('prenom') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Téléphone</label>
+                            <input type="tel" name="telephone" value="{{ old('telephone') }}"
+                                   class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors">
+                            @error('telephone') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
+                        </div>
+                        <div>
+                            <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Email</label>
+                            <input type="email" name="email" value="{{ old('email') }}"
+                                   class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors">
+                            @error('email') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
+                        </div>
+                    </div>
 
+                    {{-- ─────── INFOS MÉDICALES ─────── --}}
+                    <p class="text-[11px] font-semibold tracking-[1.2px] uppercase text-muted mb-3">Votre rendez-vous</p>
+                    <div class="grid sm:grid-cols-2 gap-[18px] mb-[18px]">
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Spécialité</label>
                             <div class="relative">
@@ -72,7 +103,6 @@
                             </div>
                             @error('specialite') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
-
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Médecin</label>
                             <div class="relative">
@@ -87,14 +117,12 @@
                             </div>
                             @error('medecin') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
-
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Date</label>
                             <input type="date" name="date" value="{{ old('date') }}"
                                    class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[12px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
                             @error('date') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
-
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Créneau horaire</label>
                             <div class="relative">
@@ -109,6 +137,14 @@
                             </div>
                             @error('creneau') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
+                    </div>
+
+                    {{-- Motif (pleine largeur) --}}
+                    <div class="mb-[18px]">
+                        <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Motif (facultatif)</label>
+                        <textarea name="motif" rows="3"
+                                  class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors resize-y">{{ old('motif') }}</textarea>
+                        @error('motif') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                     </div>
 
                     <button type="submit" class="btn btn-primary w-full justify-center text-[15px] py-4 mt-2">
