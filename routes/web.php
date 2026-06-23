@@ -13,7 +13,7 @@ Route::post('/rdv', function (Request $request) {
     'nom'        => 'required|string|max:100',
     'prenom'     => 'required|string|max:100',
     'email'      => 'required|email|max:150',
-    'telephone'  => 'required|string|max:30',
+    'telephone'  => ['required', 'string', 'max:30', 'regex:/^[0-9+\s().-]+$/'],
     'type'       => 'required|in:consultation,urgence,tele',
     'specialite' => 'required|string',
     'medecin'    => 'required|string',

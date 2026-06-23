@@ -70,6 +70,7 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Téléphone</label>
                             <input type="tel" name="telephone" value="{{ old('telephone') }}"
+       pattern="[0-9+\s().\-]+" title="Chiffres, +, espaces, tirets et parenthèses uniquement"
                                    class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors">
                             @error('telephone') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
