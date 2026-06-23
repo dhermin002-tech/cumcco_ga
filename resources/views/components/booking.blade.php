@@ -1,5 +1,4 @@
-{{-- PRISE DE RENDEZ-VOUS — resources/views/components/booking.blade.php
-     Ordre : infos patient → infos médicales → bouton --}}
+{{-- PRISE DE RENDEZ-VOUS --}}
 <section id="prendre-rdv" class="py-16 lg:py-24 bg-paper scroll-mt-[88px]">
     <div class="mx-auto max-w-[1440px] px-7 lg:px-14">
 
@@ -90,14 +89,14 @@
                             <div class="relative">
                                 <select name="specialite"
                                         class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
-                                    <option value="Médecine générale">Médecine générale</option>
-                                    <option value="Maternité">Maternité</option>
-                                    <option value="Chirurgie">Chirurgie</option>
-                                    <option value="Pédiatrie">Pédiatrie</option>
-                                    <option value="Médecine d'urgence">Médecine d'urgence</option>
-                                    <option value="Laboratoire">Laboratoire</option>
-                                    <option value="Radiologie">Radiologie</option>
-                                    <option value="Ophtalmologie">Ophtalmologie</option>
+                                    <option value="Médecine générale" @selected(request('specialite') == 'Médecine générale')>Médecine générale</option>
+                                    <option value="Maternité" @selected(request('specialite') == 'Maternité')>Maternité</option>
+                                    <option value="Chirurgie" @selected(request('specialite') == 'Chirurgie')>Chirurgie</option>
+                                    <option value="Pédiatrie" @selected(request('specialite') == 'Pédiatrie')>Pédiatrie</option>
+                                    <option value="Médecine d'urgence" @selected(request('specialite') == "Médecine d'urgence")>Médecine d'urgence</option>
+                                    <option value="Laboratoire" @selected(request('specialite') == 'Laboratoire')>Laboratoire</option>
+                                    <option value="Radiologie" @selected(request('specialite') == 'Radiologie')>Radiologie</option>
+                                    <option value="Ophtalmologie" @selected(request('specialite') == 'Ophtalmologie')>Ophtalmologie</option>
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
                             </div>
@@ -109,9 +108,9 @@
                                 <select name="medecin"
                                         class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
                                     <option value="indifferent">Tous les praticiens disponibles</option>
-                                    <option value="Dr Mavoungou">Dr Mavoungou</option>
-                                    <option value="Dr Ndong">Dr Ndong</option>
-                                    <option value="Dr Obame">Dr Obame</option>
+                                    <option value="Dr Mavoungou" @selected(request('medecin') == 'Dr Mavoungou')>Dr Mavoungou</option>
+                                    <option value="Dr Ndong" @selected(request('medecin') == 'Dr Ndong')>Dr Ndong</option>
+                                    <option value="Dr Obame" @selected(request('medecin') == 'Dr Obame')>Dr Obame</option>
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
                             </div>
@@ -120,6 +119,7 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Date</label>
                             <input type="date" name="date" value="{{ old('date') }}"
+                                    min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+30 days')) }}"
                                    class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[12px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
                             @error('date') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
@@ -128,10 +128,10 @@
                             <div class="relative">
                                 <select name="creneau"
                                         class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
-                                    <option value="08h – 10h">08h – 10h</option>
-                                    <option value="10h – 12h">10h – 12h</option>
-                                    <option value="14h – 16h">14h – 16h</option>
-                                    <option value="16h – 18h">16h – 18h</option>
+                                    <option value="08h – 10h" @selected(request('creneau') == '08h – 10h')>08h – 10h</option>
+                                    <option value="10h – 12h" @selected(request('creneau') == '10h – 12h')>10h – 12h</option>
+                                    <option value="14h – 16h" @selected(request('creneau') == '14h – 16h')>14h – 16h</option>
+                                    <option value="16h – 18h" @selected(request('creneau') == '16h – 18h')>16h – 18h</option>
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
                             </div>
@@ -139,7 +139,7 @@
                         </div>
                     </div>
 
-                    {{-- Motif (pleine largeur) --}}
+                    
                     <div class="mb-[18px]">
                         <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Motif (facultatif)</label>
                         <textarea name="motif" rows="3"

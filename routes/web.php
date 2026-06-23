@@ -17,7 +17,7 @@ Route::post('/rdv', function (Request $request) {
     'type'       => 'required|in:consultation,urgence,tele',
     'specialite' => 'required|string',
     'medecin'    => 'required|string',
-    'date'       => 'required|date',
+    'date' => 'required|date|after_or_equal:today|before_or_equal:' . date('Y-m-d', strtotime('+30 days')),
     'creneau'    => 'required|string',
     'motif'      => 'nullable|string|max:1000',
 ]);
