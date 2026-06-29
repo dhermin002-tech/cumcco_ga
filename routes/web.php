@@ -24,6 +24,9 @@ Route::middleware('auth')->group(function () {
 
     // Administration
     Route::get('/admin/medecins', [MedecinController::class, 'index'])->name('admin.medecins.index');
+    Route::get('/admin/medecins/create', [MedecinController::class, 'create'])->name('admin.medecins.create');
+    Route::post('/admin/medecins', [MedecinController::class, 'store'])->name('admin.medecins.store');
+    Route::patch('/admin/medecins/{medecin}/toggle', [MedecinController::class, 'toggle'])->name('admin.medecins.toggle');
 });
 
 require __DIR__.'/auth.php';

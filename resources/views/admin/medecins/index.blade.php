@@ -16,6 +16,8 @@
                             <th class="py-2">Spécialité</th>
                             <th class="py-2">Statut</th>
                             <th class="py-2">Jours / Horaires</th>
+                            <th class="py-2">Actions</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -31,6 +33,19 @@
                                     @endif
                                 </td>
                                 <td class="py-2">{{ $medecin->jours_horaires }}</td>
+                                <td class="py-2">
+    <form method="POST" action="{{ route('admin.medecins.toggle', $medecin) }}">
+        @csrf
+        @method('PATCH')
+        <button type="submit" class="text-sm text-blue-600 hover:underline">
+            @if ($medecin->actif)
+                Suspendre
+            @else
+                Réactiver
+            @endif
+        </button>
+    </form>
+</td>
                             </tr>
                         @endforeach
                     </tbody>
