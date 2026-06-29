@@ -27,6 +27,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/medecins/create', [MedecinController::class, 'create'])->name('admin.medecins.create');
     Route::post('/admin/medecins', [MedecinController::class, 'store'])->name('admin.medecins.store');
     Route::patch('/admin/medecins/{medecin}/toggle', [MedecinController::class, 'toggle'])->name('admin.medecins.toggle');
+    Route::delete('/admin/medecins/{medecin}', [MedecinController::class, 'destroy'])->name('admin.medecins.destroy');
+    Route::get('/admin/medecins/{medecin}/edit', [MedecinController::class, 'edit'])->name('admin.medecins.edit');
+    Route::patch('/admin/medecins/{medecin}', [MedecinController::class, 'update'])->name('admin.medecins.update');
 });
 
 require __DIR__.'/auth.php';

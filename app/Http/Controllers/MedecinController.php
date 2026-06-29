@@ -15,29 +15,52 @@ class MedecinController extends Controller
     }
 
     public function create()
-{
-    return view('admin.medecins.create');
+    {
+        return view('admin.medecins.create');
 
-}
-public function store(Request $request)
-{
-    $data = $request->validate([
-        'nom'            => 'required|string|max:150',
-        'specialite'     => 'required|string|max:150',
-        'jours_horaires' => 'nullable|string|max:500',
-    ]);
+    }
+    public function store(Request $request)
+    {
+        $data = $request->validate([
+            'nom'            => 'required|string|max:150',
+            'specialite'     => 'required|string|max:150',
+            'jours_horaires' => 'nullable|string|max:500',
+        ]);
 
-    Medecin::create($data);
+        Medecin::create($data);
 
-    return redirect()->route('admin.medecins.index')->with('success', 'Médecin ajouté avec succès.');
-}
+        return redirect()->route('admin.medecins.index')->with('success', 'Médecin ajouté avec succès.');
+    }
 
-public function toggle(Medecin $medecin)
-{
-    $medecin->actif = !$medecin->actif;
-    $medecin->save();
+    public function toggle(Medecin $medecin)
+    {
+        $medecin->actif = !$medecin->actif;
+        $medecin->save();
 
-    return redirect()->route('admin.medecins.index')->with('success', 'Statut du médecin mis à jour.');
-}
+        return redirect()->route('admin.medecins.index')->with('success', 'Statut du médecin mis à jour.');
+    }
 
+    public function destroy(Medecin $medecin)
+    {
+        $medecin->delete();
+
+        return redirect()->route('admin.medecins.index')->with('success', 'Médecin supprimé.');
+    }
+    public function edit(Medecin $medecin)
+    {
+        return view('admin.medecins.edit', ['medecin' => $medecin]);
+    }
+
+    public function update(Request $request, Medecin $medecin)
+    {
+        $data = $request->validate([
+            'nom'            => 'required|string|max:150',
+            'specialite'     => 'required|string|max:150',
+            'jours_horaires' => 'nullable|string|max:500',
+        ]);
+
+        $medecin->update($data);
+
+        return redirect()->route('admin.medecins.index')->with('success', 'Médecin modifié avec succès.');
+    }
 }
