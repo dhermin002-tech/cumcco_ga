@@ -42,10 +42,18 @@ class MedecinController extends Controller
 
     public function destroy(Medecin $medecin)
     {
+        if (auth()->user()->role !== 'admin') {
+            abort(403);
+        }
+
         $medecin->delete();
 
         return redirect()->route('admin.medecins.index')->with('success', 'Médecin supprimé.');
     }
+    
+
+
+
     public function edit(Medecin $medecin)
     {
         return view('admin.medecins.edit', ['medecin' => $medecin]);

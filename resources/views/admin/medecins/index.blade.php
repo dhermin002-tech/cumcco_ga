@@ -60,12 +60,14 @@
                                             </button>
                                         </form>
 
-                                        <form method="POST" action="{{ route('admin.medecins.destroy', $medecin) }}"
-                                              onsubmit="return confirm('Supprimer ce médecin ?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="text-sm text-red-600 hover:underline">Supprimer</button>
-                                        </form>
+                                        @if (auth()->user()->role === 'admin')
+                                            <form method="POST" action="{{ route('admin.medecins.destroy', $medecin) }}"
+                                                  onsubmit="return confirm('Supprimer ce médecin ?');">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="text-sm text-red-600 hover:underline">Supprimer</button>
+                                            </form>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>
