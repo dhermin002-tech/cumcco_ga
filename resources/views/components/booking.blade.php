@@ -120,7 +120,7 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Date</label>
                             <input type="date" name="date" value="{{ old('date') }}"
-                                    min="{{ date('Y-m-d') }}" max="{{ date('Y-m-d', strtotime('+30 days')) }}"
+                                    min="{{ date('Y-m-d', strtotime('+3 days')) }}" max="{{ date('Y-m-d', strtotime('+30 days')) }}"
                                    class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[12px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
                             @error('date') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>

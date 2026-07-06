@@ -15,6 +15,12 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.medecins.index')" :active="request()->routeIs('admin.medecins.*')">
+                        {{ __('Médecins') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('admin.rendezvous.index')" :active="request()->routeIs('admin.rendezvous.*')">
+                        {{ __('Rendez-vous') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -69,6 +75,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.medecins.index')" :active="request()->routeIs('admin.medecins.*')">
+                {{ __('Médecins') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('admin.rendezvous.index')" :active="request()->routeIs('admin.rendezvous.*')">
+                {{ __('Rendez-vous') }}
             </x-responsive-nav-link>
         </div>
 

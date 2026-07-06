@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/admin/medecins/{medecin}', [MedecinController::class, 'destroy'])->name('admin.medecins.destroy');
     Route::get('/admin/medecins/{medecin}/edit', [MedecinController::class, 'edit'])->name('admin.medecins.edit');
     Route::patch('/admin/medecins/{medecin}', [MedecinController::class, 'update'])->name('admin.medecins.update');
+    Route::get('/admin/rendez-vous', [RendezVousController::class, 'index'])->name('admin.rendezvous.index');
 });
 
 require __DIR__.'/auth.php';

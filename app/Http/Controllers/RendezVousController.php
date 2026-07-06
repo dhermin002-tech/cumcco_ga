@@ -17,7 +17,7 @@ class RendezVousController extends Controller
             'type'       => 'required|in:consultation,urgence,tele',
             'specialite' => 'required|string',
             'medecin'    => 'required|string',
-            'date'       => 'required|date|after_or_equal:today|before_or_equal:' . date('Y-m-d', strtotime('+30 days')),
+            'date' => 'required|date|after_or_equal:' . date('Y-m-d', strtotime('+3 days')) . '|before_or_equal:' . date('Y-m-d', strtotime('+30 days')),
             'creneau'    => 'required|string',
             'motif'      => 'nullable|string|max:1000',
         ]);
@@ -27,5 +27,11 @@ class RendezVousController extends Controller
         return back()->with('success',
             "Demande reçue : {$data['specialite']} le {$data['date']} ({$data['creneau']}). Nous vous recontacterons pour confirmer."
         );
+    }
+    public function index()
+    {
+        $rendezvous = RendezVous::orderBy('date')->paginate(20);
+
+        return view('admin.rendezvous.index', ['rendezvous' => $rendezvous]);
     }
 }
