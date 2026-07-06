@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\RendezVous;   // ← important : importer le modèle
+use App\Models\RendezVous;   
 
 class RendezVousController extends Controller
 {
