@@ -19,5 +19,6 @@ class RendezVous extends Model
         'date',
         'creneau',
         'motif',
+        'statut',
     ];
 }

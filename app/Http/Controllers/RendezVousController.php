@@ -9,6 +9,10 @@ class RendezVousController extends Controller
 {
     public function store(Request $request)
     {
+        $dateMin = $request->input('type') === 'urgence'
+            ? date('Y-m-d')                              
+            : date('Y-m-d', strtotime('+3 days'));      
+
         $data = $request->validate([
             'nom'        => 'required|string|max:100',
             'prenom'     => 'required|string|max:100',
@@ -17,7 +21,7 @@ class RendezVousController extends Controller
             'type'       => 'required|in:consultation,urgence,tele',
             'specialite' => 'required|string',
             'medecin'    => 'required|string',
-            'date' => 'required|date|after_or_equal:' . date('Y-m-d', strtotime('+3 days')) . '|before_or_equal:' . date('Y-m-d', strtotime('+30 days')),
+            'date'       => 'required|date|after_or_equal:' . $dateMin . '|before_or_equal:' . date('Y-m-d', strtotime('+30 days')),
             'creneau'    => 'required|string',
             'motif'      => 'nullable|string|max:1000',
         ]);
@@ -34,4 +38,17 @@ class RendezVousController extends Controller
 
         return view('admin.rendezvous.index', ['rendezvous' => $rendezvous]);
     }
+
+    public function updateStatut(Request $request, $id)
+    {
+        $data = $request->validate([
+            'statut' => 'required|in:en_attente,accepte,refuse,annule',
+        ]);
+
+        $rdv = RendezVous::findOrFail($id);
+        $rdv->update(['statut' => $data['statut']]);
+
+        return redirect()->route('admin.rendezvous.index')->with('success', 'Statut mis à jour.');
+    }
+    
 }

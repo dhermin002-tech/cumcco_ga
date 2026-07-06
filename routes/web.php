@@ -31,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/medecins/{medecin}/edit', [MedecinController::class, 'edit'])->name('admin.medecins.edit');
     Route::patch('/admin/medecins/{medecin}', [MedecinController::class, 'update'])->name('admin.medecins.update');
     Route::get('/admin/rendez-vous', [RendezVousController::class, 'index'])->name('admin.rendezvous.index');
+    Route::patch('/admin/rendez-vous/{id}/statut', [RendezVousController::class, 'updateStatut'])->name('admin.rendezvous.statut');
 });
 
 require __DIR__.'/auth.php';
