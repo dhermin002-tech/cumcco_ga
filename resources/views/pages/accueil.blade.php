@@ -5,5 +5,5 @@
     <x-about />
     <x-specialties />
     <x-hours />
-    <x-booking />
+    <x-booking :medecins="$medecins" />
 </x-layouts.app>

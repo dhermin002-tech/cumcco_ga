@@ -1,4 +1,5 @@
 {{-- PRISE DE RENDEZ-VOUS --}}
+@props(['medecins' => []])
 <section id="prendre-rdv" class="py-16 lg:py-24 bg-paper scroll-mt-[88px]">
     <div class="mx-auto max-w-[1440px] px-7 lg:px-14">
 
@@ -111,12 +112,11 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Médecin</label>
                             <div class="relative">
-                                <select name="medecin"
-                                        class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
+                                <select name="medecin" class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
                                     <option value="indifferent">Tous les praticiens disponibles</option>
-                                    <option value="Dr Mavoungou" @selected(request('medecin') == 'Dr Mavoungou')>Dr Mavoungou</option>
-                                    <option value="Dr Ndong" @selected(request('medecin') == 'Dr Ndong')>Dr Ndong</option>
-                                    <option value="Dr Obame" @selected(request('medecin') == 'Dr Obame')>Dr Obame</option>
+                                    @foreach ($medecins as $medecin)
+                                        <option value="{{ $medecin->nom }}" @selected(request('medecin') == $medecin->nom)>{{ $medecin->nom }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
                             </div>

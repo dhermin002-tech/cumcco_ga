@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\RendezVous;   
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RendezVousAccepte;
 
 class RendezVousController extends Controller
 {
@@ -47,6 +49,10 @@ class RendezVousController extends Controller
 
         $rdv = RendezVous::findOrFail($id);
         $rdv->update(['statut' => $data['statut']]);
+
+        if ($data['statut'] === 'accepte') {
+            Mail::to($rdv->email)->send(new RendezVousAccepte($rdv));
+        }
 
         return redirect()->route('admin.rendezvous.index')->with('success', 'Statut mis à jour.');
     }

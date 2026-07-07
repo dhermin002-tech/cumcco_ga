@@ -6,7 +6,10 @@ use App\Http\Controllers\MedecinController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Site public ───
-Route::get('/', fn() => view('pages.accueil'));
+Route::get('/', function () {
+    $medecins = \App\Models\Medecin::where('actif', true)->orderBy('nom')->get();
+    return view('pages.accueil', ['medecins' => $medecins]);
+});
 Route::get('/informations-patients', fn() => view('pages.informations-patients'))->name('infos');
 Route::get('/actualites', fn() => view('pages.actualites'))->name('actualites');
 Route::post('/rdv', [RendezVousController::class, 'store'])->name('rdv.store');
