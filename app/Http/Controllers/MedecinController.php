@@ -3,22 +3,49 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Medecin;   // ← importer le modèle
+use App\Models\Medecin;
 
 class MedecinController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $medecins = Medecin::all();
+        $query = Medecin::query();
 
-        return view('admin.medecins.index', ['medecins' => $medecins]);
+        // Filtre par statut
+        if ($request->filled('statut')) {
+            if ($request->statut === 'actif') {
+                $query->where('actif', true);
+            } elseif ($request->statut === 'suspendu') {
+                $query->where('actif', false);
+            }
+        }
+
+        // Filtre par spécialité
+        if ($request->filled('specialite')) {
+            $query->where('specialite', $request->specialite);
+        }
+
+        // Recherche par nom
+        if ($request->filled('recherche')) {
+            $query->where('nom', 'like', '%' . $request->recherche . '%');
+        }
+
+        $medecins = $query->orderBy('nom')->get();
+
+        // Liste des spécialités pour le menu déroulant du filtre
+        $specialites = Medecin::distinct()->orderBy('specialite')->pluck('specialite');
+
+        return view('admin.medecins.index', [
+            'medecins' => $medecins,
+            'specialites' => $specialites,
+        ]);
     }
 
     public function create()
     {
         return view('admin.medecins.create');
-
     }
+
     public function store(Request $request)
     {
         $data = $request->validate([
@@ -50,9 +77,6 @@ class MedecinController extends Controller
 
         return redirect()->route('admin.medecins.index')->with('success', 'Médecin supprimé.');
     }
-    
-
-
 
     public function edit(Medecin $medecin)
     {
