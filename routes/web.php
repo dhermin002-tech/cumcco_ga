@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Route;
 // ─── Site public ───
 Route::get('/', function () {
     $medecins = \App\Models\Medecin::where('actif', true)->orderBy('nom')->get();
-    return view('pages.accueil', ['medecins' => $medecins]);
+    $specialites = \App\Models\Medecin::where('actif', true)->distinct()->orderBy('specialite')->pluck('specialite');
+    return view('pages.accueil', ['medecins' => $medecins, 'specialites' => $specialites]);
 });
 Route::get('/informations-patients', fn() => view('pages.informations-patients'))->name('infos');
 Route::get('/actualites', fn() => view('pages.actualites'))->name('actualites');

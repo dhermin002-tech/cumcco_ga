@@ -1,5 +1,5 @@
 {{-- PRISE DE RENDEZ-VOUS --}}
-@props(['medecins' => []])
+@props(['medecins' => [], 'specialites' => []])
 <section id="prendre-rdv" class="py-16 lg:py-24 bg-paper scroll-mt-[88px]">
     <div class="mx-auto max-w-[1440px] px-7 lg:px-14">
 
@@ -32,10 +32,11 @@
 
                 <form method="POST" action="{{ route('rdv.store') }}"
                     x-data="{
-                            tab: 'consultation',
-                            dateMinUrgence: '{{ date('Y-m-d') }}',
-                            dateMinNormal: '{{ date('Y-m-d', strtotime('+3 days')) }}'
-                             }">
+                        tab: 'consultation',
+                        dateMinUrgence: '{{ date('Y-m-d') }}',
+                        dateMinNormal: '{{ date('Y-m-d', strtotime('+3 days')) }}',
+                        specialiteChoisie: ''
+                        }"
                     @csrf
                     <input type="hidden" name="type" :value="tab">
 
@@ -94,16 +95,11 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Spécialité</label>
                             <div class="relative">
-                                <select name="specialite"
-                                        class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
-                                    <option value="Médecine générale" @selected(request('specialite') == 'Médecine générale')>Médecine générale</option>
-                                    <option value="Maternité" @selected(request('specialite') == 'Maternité')>Maternité</option>
-                                    <option value="Chirurgie" @selected(request('specialite') == 'Chirurgie')>Chirurgie</option>
-                                    <option value="Pédiatrie" @selected(request('specialite') == 'Pédiatrie')>Pédiatrie</option>
-                                    <option value="Médecine d'urgence" @selected(request('specialite') == "Médecine d'urgence")>Médecine d'urgence</option>
-                                    <option value="Laboratoire" @selected(request('specialite') == 'Laboratoire')>Laboratoire</option>
-                                    <option value="Radiologie" @selected(request('specialite') == 'Radiologie')>Radiologie</option>
-                                    <option value="Ophtalmologie" @selected(request('specialite') == 'Ophtalmologie')>Ophtalmologie</option>
+                               <select name="specialite" x-model="specialiteChoisie"
+                                    class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
+                                 @foreach ($specialites as $specialite)
+                                    <option value="{{ $specialite }}" @selected(request('specialite') == $specialite)>{{ $specialite }}</option>
+                                  @endforeach
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
                             </div>
@@ -112,10 +108,14 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Médecin</label>
                             <div class="relative">
-                                <select name="medecin" class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
+                                <select name="medecin"
+                                        class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
                                     <option value="indifferent">Tous les praticiens disponibles</option>
                                     @foreach ($medecins as $medecin)
-                                        <option value="{{ $medecin->nom }}" @selected(request('medecin') == $medecin->nom)>{{ $medecin->nom }}</option>
+                                        <option value="{{ $medecin->nom }}"
+                                            data-specialite="{{ $medecin->specialite }}"
+                                            x-show="specialiteChoisie === '' || specialiteChoisie === '{{ $medecin->specialite }}'"
+                                            @selected(request('medecin') == $medecin->nom)>{{ $medecin->nom }}</option>
                                     @endforeach
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
