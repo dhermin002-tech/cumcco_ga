@@ -1,7 +1,6 @@
-{{-- PAGE ARTICLE — resources/views/pages/article.blade.php  ·  route /actualites/{actualite} --}}
+{{-- PAGE ARTICLE --}}
 <x-layouts.app title="{{ $article->titre }} — CUMC-CO">
 
-    {{-- Bandeau de tête --}}
     <section class="bg-navy text-white py-14 lg:py-16">
         <div class="mx-auto max-w-[820px] px-7 lg:px-8">
             <a href="{{ route('actualites') }}" class="inline-flex items-center gap-2 text-[13px] text-primary-300 hover:text-white transition-colors mb-6">
@@ -18,20 +17,16 @@
     <section class="py-14 lg:py-20 bg-paper">
         <div class="mx-auto max-w-[820px] px-7 lg:px-8">
 
-            {{-- Image --}}
-            @if ($article->image)
+            @if ($article->imageUrl())
                 <div class="rounded-[18px] overflow-hidden aspect-[16/9] mb-10">
-                    <img src="{{ $article->image }}" alt="{{ $article->titre }}" class="w-full h-full object-cover">
+                    <img src="{{ $article->imageUrl() }}" alt="{{ $article->titre }}" class="w-full h-full object-cover">
                 </div>
             @endif
 
-            {{-- Extrait (chapô) --}}
             <p class="text-lg lg:text-xl text-ink-soft leading-relaxed font-medium mb-8">{{ $article->extrait }}</p>
 
-            {{-- Contenu complet --}}
             <div class="text-[16px] text-ink-soft leading-[1.8] whitespace-pre-line">{{ $article->contenu }}</div>
 
-            {{-- Retour --}}
             <div class="mt-12 pt-8 border-t border-[#E8E6E0]">
                 <a href="{{ route('actualites') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-primary-600 hover:text-primary-700 transition-colors">
                     ← Retour aux actualités

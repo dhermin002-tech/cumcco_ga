@@ -9,14 +9,14 @@
         <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-[14px] shadow-[0_4px_16px_rgba(14,27,44,.06)] p-8">
 
-                <form method="POST" action="{{ route('admin.actualites.store') }}">
+                <form method="POST" action="{{ route('admin.actualites.store') }}" enctype="multipart/form-data">
                     @csrf
 
-                    <div class="mb-5">
-                        <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Titre</label>
-                        <input type="text" name="titre" value="{{ old('titre') }}"
-                               class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[11px] text-[14.5px] text-navy hover:border-primary focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-colors">
-                        @error('titre') <p class="text-xs text-urgent mt-1.5">{{ $message }}</p> @enderror
+                   <div class="mb-5">
+                     <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Image <span class="text-muted font-normal">(facultatif, JPG/PNG)</span></label>
+                    <input type="file" name="image" accept="image/*"
+                            class="w-full text-[14px] text-ink-soft file:mr-3 file:py-2 file:px-4 file:rounded-[8px] file:border-0 file:bg-primary file:text-white file:text-sm file:font-semibold file:cursor-pointer hover:file:bg-primary-600">
+                         @error('image') <p class="text-xs text-urgent mt-1.5">{{ $message }}</p> @enderror
                     </div>
 
                     <div class="grid sm:grid-cols-2 gap-5 mb-5">

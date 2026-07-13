@@ -1,6 +1,4 @@
-{{-- PAGE INFORMATIONS PATIENTS — resources/views/informations-patients.blade.php
-     route /informations-patients (name: infos)
-     Page séparée : juste le contenu, le reste vient du layout. --}}
+{{-- PAGE INFORMATIONS PATIENTS--}}
 <x-layouts.app title="Informations Patients — CUMC-CO">
 
     {{-- Bandeau de tête de page --}}

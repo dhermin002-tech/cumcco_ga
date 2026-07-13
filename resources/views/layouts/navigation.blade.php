@@ -21,6 +21,11 @@
                     <x-nav-link :href="route('admin.rendezvous.index')" :active="request()->routeIs('admin.rendezvous.*')">
                         {{ __('Rendez-vous') }}
                     </x-nav-link>
+                    @if (auth()->user()->role === 'admin')
+                        <x-nav-link :href="route('admin.actualites.index')" :active="request()->routeIs('admin.actualites.*')">
+                            {{ __('Actualités') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -82,6 +87,11 @@
             <x-responsive-nav-link :href="route('admin.rendezvous.index')" :active="request()->routeIs('admin.rendezvous.*')">
                 {{ __('Rendez-vous') }}
             </x-responsive-nav-link>
+            @if (auth()->user()->role === 'admin')
+                <x-responsive-nav-link :href="route('admin.actualites.index')" :active="request()->routeIs('admin.actualites.*')">
+                    {{ __('Actualités') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

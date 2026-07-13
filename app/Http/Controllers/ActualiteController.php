@@ -31,14 +31,20 @@ class ActualiteController extends Controller
             'categorie'        => 'required|string|max:100',
             'extrait'          => 'required|string|max:500',
             'contenu'          => 'required|string',
-            'image'            => 'nullable|url|max:500',
+            'image'            => 'nullable|image|max:2048',
             'date_publication' => 'nullable|date',
         ]);
+
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('actualites', 'public');
+        }
 
         Actualite::create($data);
 
         return redirect()->route('admin.actualites.index')->with('success', 'Actualité publiée avec succès.');
     }
+
+
 
     public function edit(Actualite $actualite)
     {
@@ -56,14 +62,19 @@ class ActualiteController extends Controller
             'categorie'        => 'required|string|max:100',
             'extrait'          => 'required|string|max:500',
             'contenu'          => 'required|string',
-            'image'            => 'nullable|url|max:500',
+            'image'            => 'nullable|image|max:2048',
             'date_publication' => 'nullable|date',
         ]);
 
+        if ($request->hasFile('image')) {
+            $data['image'] = $request->file('image')->store('actualites', 'public');
+        }
+
         $actualite->update($data);
 
-        return redirect()->route('admin.actualites.index')->with('success', 'Actualité modifiée avec succès.');
+        return redirect()->route('admin.actualites.index')->with('success', 'Actualité mise à jour avec succès.');
     }
+    
 
     public function destroy(Actualite $actualite)
     {

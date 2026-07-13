@@ -1,5 +1,4 @@
-{{-- PAGE ACTUALITÉS — resources/views/pages/actualites.blade.php  ·  route /actualites
-     Les articles viennent maintenant de la base (table actualites), gérés via l'admin. --}}
+{{-- PAGE ACTUALITÉS--}}
 <x-layouts.app title="Actualités — CUMC-CO">
 
     {{-- Bandeau de tête --}}
@@ -16,7 +15,6 @@
     <section class="py-16 lg:py-24 bg-paper">
         <div class="mx-auto max-w-[1440px] px-7 lg:px-14">
 
-            {{-- 1) PRÉPARATION DES DONNÉES : le premier article = la une, les autres = la liste --}}
             @php
                 $vedette = $articles->first();
                 $autres  = $articles->slice(1);
@@ -26,11 +24,11 @@
                 <p class="text-center text-muted py-16">Aucune actualité publiée pour le moment.</p>
             @else
 
-                {{-- 2) ARTICLE VEDETTE (le plus récent, mis en avant) --}}
+                {{-- ARTICLE VEDETTE (le plus récent) --}}
                 <a href="{{ route('actualites.show', $vedette) }}" class="group grid lg:grid-cols-2 gap-8 lg:gap-12 items-center mb-16 lg:mb-20">
-                    @if ($vedette->image)
+                    @if ($vedette->imageUrl())
                         <div class="rounded-[18px] overflow-hidden aspect-[16/10]">
-                            <img src="{{ $vedette->image }}" alt="{{ $vedette->titre }}"
+                            <img src="{{ $vedette->imageUrl() }}" alt="{{ $vedette->titre }}"
                                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                         </div>
                     @else
@@ -51,14 +49,13 @@
                     </div>
                 </a>
 
-                {{-- 3) LISTE DES AUTRES ARTICLES --}}
+                {{-- LISTE DES AUTRES ARTICLES --}}
                 <div class="border-t border-[#E8E6E0]">
                     @foreach ($autres as $a)
-                    <a href="{{ route('actualites.show', $a) }}" class="group flex flex-col sm:flex-row gap-5 sm:gap-7 py-7 border-b border-[#E8E6E0]">
-                            {{-- vignette à gauche --}}
-                            @if ($a->image)
+                        <a href="{{ route('actualites.show', $a) }}" class="group flex flex-col sm:flex-row gap-5 sm:gap-7 py-7 border-b border-[#E8E6E0]">
+                            @if ($a->imageUrl())
                                 <div class="sm:w-56 shrink-0 rounded-[12px] overflow-hidden aspect-[16/10]">
-                                    <img src="{{ $a->image }}" alt="{{ $a->titre }}"
+                                    <img src="{{ $a->imageUrl() }}" alt="{{ $a->titre }}"
                                          class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                                 </div>
                             @else
@@ -66,7 +63,6 @@
                                     <span class="text-navy-500 text-xs">CUMC-CO</span>
                                 </div>
                             @endif
-                            {{-- texte à droite --}}
                             <div class="flex-1">
                                 <div class="flex items-center gap-3 mb-2 text-[12px]">
                                     <span class="font-semibold px-2.5 py-[3px] rounded-full bg-primary-50 text-primary-700 uppercase tracking-wide">{{ $a->categorie }}</span>
