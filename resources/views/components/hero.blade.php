@@ -48,10 +48,10 @@
                 <div class="bg-primary-50 border border-primary-100 rounded-[10px] px-[18px] py-4 mb-4">
                     <div class="text-[15px] font-semibold text-navy">Médecine générale</div>
                     <div class="font-serif font-medium text-[22px] text-primary-700 mt-1">
-                        14h30 <small class="font-sans font-normal text-[13px] text-muted">· Dr Mavoungou</small>
+                        Aucun crénau disponible <small class="font-sans font-normal text-[13px] text-muted"> </small>
                     </div>
                 </div>
-                <a href="{{ url('/') }}?{{ http_build_query(['specialite' => 'Médecine générale', 'creneau' => '14h – 16h', 'medecin' => 'Dr Mavoungou']) }}#prendre-rdv"
+                <a href="{{ url('/') }}?{{ http_build_query(['specialite' => 'généraliste', 'creneau' => '14h – 16h', 'medecin' => 'Dr EYOUGA Elie']) }}#prendre-rdv"
                    class="btn btn-primary w-full justify-center">Réserver ce créneau</a>
             </div>
             <div class="flex items-center gap-2 px-[22px] py-3.5 bg-paper border-t border-[#E8E6E0] text-xs text-muted">
