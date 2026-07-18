@@ -8,7 +8,7 @@ use App\Models\Medecin;
 class MedecinSeeder extends Seeder
 {
     /**
-     * Insère la liste des médecins de la clinique.
+     * Run the database seeds.
      */
     public function run(): void
     {
