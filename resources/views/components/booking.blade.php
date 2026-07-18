@@ -36,7 +36,7 @@
                         dateMinUrgence: '{{ date('Y-m-d') }}',
                         dateMinNormal: '{{ date('Y-m-d', strtotime('+3 days')) }}',
                         specialiteChoisie: ''
-                        }"
+                    }">
                     @csrf
                     <input type="hidden" name="type" :value="tab">
 
@@ -59,7 +59,7 @@
                         </button>
                     </div>
 
-                    {{-- ─────── INFOS PATIENT ─────── --}}
+                    {{-- INFOS PATIENT --}}
                     <p class="text-[11px] font-semibold tracking-[1.2px] uppercase text-muted mb-3">Vos informations</p>
                     <div class="grid sm:grid-cols-2 gap-[18px] mb-[18px]">
                         <div>
@@ -77,7 +77,7 @@
                         <div>
                             <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Téléphone</label>
                             <input type="tel" name="telephone" value="{{ old('telephone') }}"
-       pattern="[0-9+\s().\-]+" title="Chiffres, +, espaces, tirets et parenthèses uniquement"
+                                   pattern="[0-9+\s().\-]+" title="Chiffres, +, espaces, tirets et parenthèses uniquement"
                                    class="w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy hover:border-primary transition-colors">
                             @error('telephone') <p class="text-xs text-urgent mt-1">{{ $message }}</p> @enderror
                         </div>
@@ -89,7 +89,7 @@
                         </div>
                     </div>
 
-                    {{-- ─────── INFOS MÉDICALES ─────── --}}
+                    {{-- INFOS MÉDICALES --}}
                     <p class="text-[11px] font-semibold tracking-[1.2px] uppercase text-muted mb-3">Votre rendez-vous</p>
                     <div class="grid sm:grid-cols-2 gap-[18px] mb-[18px]">
                         <div>
@@ -134,10 +134,32 @@
                             <div class="relative">
                                 <select name="creneau"
                                         class="appearance-none w-full bg-paper border border-[#D8D6CF] rounded-[10px] px-4 py-[13px] text-[14.5px] text-navy cursor-pointer hover:border-primary transition-colors">
-                                    <option value="08h – 10h" @selected(request('creneau') == '08h – 10h')>08h – 10h</option>
-                                    <option value="10h – 12h" @selected(request('creneau') == '10h – 12h')>10h – 12h</option>
-                                    <option value="14h – 16h" @selected(request('creneau') == '14h – 16h')>14h – 16h</option>
-                                    <option value="16h – 18h" @selected(request('creneau') == '16h – 18h')>16h – 18h</option>
+                                    @php
+                                        $creneaux = [];
+                                        
+                                        for ($h = 8; $h < 12; $h++) {
+                                            foreach (['00', '30'] as $m) {
+                                                $debut = sprintf('%02dh%s', $h, $m);
+                                                $finH = $m === '30' ? $h + 1 : $h;
+                                                $finM = $m === '30' ? '00' : '30';
+                                                $fin = sprintf('%02dh%s', $finH, $finM);
+                                                $creneaux[] = "$debut – $fin";
+                                            }
+                                        }
+                                        
+                                        for ($h = 14; $h < 18; $h++) {
+                                            foreach (['00', '30'] as $m) {
+                                                $debut = sprintf('%02dh%s', $h, $m);
+                                                $finH = $m === '30' ? $h + 1 : $h;
+                                                $finM = $m === '30' ? '00' : '30';
+                                                $fin = sprintf('%02dh%s', $finH, $finM);
+                                                $creneaux[] = "$debut – $fin";
+                                            }
+                                        }
+                                    @endphp
+                                    @foreach ($creneaux as $creneau)
+                                        <option value="{{ $creneau }}" @selected(request('creneau') == $creneau)>{{ $creneau }}</option>
+                                    @endforeach
                                 </select>
                                 <span class="absolute right-4 top-1/2 -translate-y-1/2 text-[#9AA6B8] text-xs pointer-events-none">▾</span>
                             </div>
@@ -145,7 +167,7 @@
                         </div>
                     </div>
 
-                    
+
                     <div class="mb-[18px]">
                         <label class="block text-[13px] font-medium text-ink-soft mb-[7px]">Motif (facultatif)</label>
                         <textarea name="motif" rows="3"
